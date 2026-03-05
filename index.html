@@ -519,26 +519,15 @@ Guidelines:
   }
 
   // ============================================================
-  // CALL OPENAI API
+  // CALL AI API via Cloudflare Worker (Groq - free)
   // ============================================================
   async function getAIResponse() {
     const response = await fetch(WORKER_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "gpt-4o",
-        messages: conversationHistory,
-        max_tokens: 200,
-        temperature: 0.8
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: conversationHistory })
     });
-
-    if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
-    }
-
+    if (!response.ok) throw new Error(`API error: ${response.status}`);
     const data = await response.json();
     return data.choices[0].message.content.trim();
   }
