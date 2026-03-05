@@ -421,7 +421,7 @@
   // ============================================================
   // CONFIGURATION
   // ============================================================
-  const OPENAI_API_KEY = "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";
+  const WORKER_URL = "https://wispy-frost-8bce.starnini86.workers.dev";
   const QUALTRICS_URL  = "https://maastrichtuniversity.eu.qualtrics.com/jfe/form/SV_6ySu3OmbOjeWChM";
   const MAX_EXCHANGES  = 8; // number of user messages before finish button appears
 
@@ -522,11 +522,10 @@ Guidelines:
   // CALL OPENAI API
   // ============================================================
   async function getAIResponse() {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch(WORKER_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${OPENAI_API_KEY}`
       },
       body: JSON.stringify({
         model: "gpt-4o",
